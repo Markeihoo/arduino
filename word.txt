@@ -1,0 +1,69 @@
+========================================
+  คู่มือการใช้งาน Arduino บน Neovim
+========================================
+
+## ข้อกำหนดเบื้องต้น
+- ติดตั้ง arduino-cli แล้ว (brew install arduino-cli)
+- ติดตั้ง CH340 Driver แล้ว (สำหรับ D1 Mini)
+- ติดตั้ง ESP8266 core แล้ว (esp8266:esp8266 3.1.2)
+- ติดตั้ง plugin vim-arduino ใน Neovim แล้ว
+
+----------------------------------------
+  ขั้นตอนที่ 1 — สร้างโปรเจกต์
+----------------------------------------
+1. สร้าง folder ชื่อเดียวกับไฟล์ เช่น:
+   mkdir ~/Documents/MyProject
+   cd ~/Documents/MyProject
+
+2. สร้างไฟล์ .ino ชื่อเดียวกับ folder:
+   nvim MyProject.ino
+
+   *** ชื่อ folder และไฟล์ต้องตรงกันเสมอ ***
+   OK  → MyProject/MyProject.ino
+   NO  → MyProject/sketch.ino
+
+----------------------------------------
+  ขั้นตอนที่ 2 — ตั้งค่าครั้งแรก (ทำครั้งเดียว)
+----------------------------------------
+เปิดไฟล์ .ino แล้วรันคำสั่งใน Neovim:
+
+1. เลือกบอร์ด:
+   :ArduinoChooseBoard
+   หรือกด <leader>ab
+   → พิมพ์ d1_mini แล้ว Enter เลือก esp8266:esp8266:d1_mini
+
+2. เสียบบอร์ด D1 Mini เข้า USB แล้วเลือก port:
+   :ArduinoChoosePort
+   หรือกด <leader>ap
+   → เลือก /dev/tty.usbserial-XXXX หรือ /dev/tty.wchusbserial-XXXX
+
+----------------------------------------
+  ขั้นตอนที่ 3 — Shortcut ที่ใช้ได้
+----------------------------------------
+
+  <leader>au  →  :ArduinoUpload       Compile + อัปโหลดโค้ดลงบอร์ด
+  <leader>av  →  :ArduinoVerify       Compile อย่างเดียว (ไม่อัปโหลด)
+  <leader>as  →  :ArduinoSerial       เปิด Serial Monitor
+  <leader>ab  →  :ArduinoChooseBoard  เปลี่ยนบอร์ด
+  <leader>ap  →  :ArduinoChoosePort   เปลี่ยน Port
+
+  *** Shortcut ใช้ได้เฉพาะเมื่อเปิดไฟล์ .ino เท่านั้น ***
+
+----------------------------------------
+  ขั้นตอนที่ 4 — Workflow จริง
+----------------------------------------
+1. เสียบบอร์ด D1 Mini เข้า USB
+2. เปิดไฟล์ .ino ใน Neovim
+3. เขียนโค้ด
+4. กด <leader>au เพื่อ compile + upload
+5. กด <leader>as เพื่อดู output ใน Serial Monitor
+
+----------------------------------------
+  หมายเหตุ
+----------------------------------------
+- Serial Monitor ต้องเสียบบอร์ดก่อนถึงจะใช้ได้
+- Board และ Port จะถูกจำไว้ ไม่ต้องเลือกซ้ำทุกครั้ง
+- Default board: esp8266:esp8266:d1_mini (D1 Mini)
+- Default baud rate: 9600
+
+========================================
